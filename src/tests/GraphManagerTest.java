@@ -46,6 +46,21 @@ public class GraphManagerTest {
 		Assert.assertEquals(meanEdgeSimpleGraph, graphManager.getMeanEdge(simpleGraph), 0);
 		Assert.assertEquals(meanEdgeWeightedGraph, graphManager.getMeanEdge(weightedGraph), 0);
 		Assert.assertEquals(meanEdgeDisconnectedGraph, graphManager.getMeanEdge(disconnectedGraph), 0);
+		
+	}
+	
+	@Test
+	public void testGraphRepresentation() {
+		
+		String simpleMatrix = "  1 2 3 4 5" + "\n"+
+				"1 0 1 0 0 1" + "\n"+
+				"2 1 0 0 0 1" + "\n" +
+				"3 0 0 0 1 1" + "\n" +
+				"4 0 0 1 0 1" + "\n" +
+				"5 1 1 1 1 0" + "\n";
+		
+		Assert.assertEquals(simpleMatrix, graphManager.graphRepresentation(simpleGraph, "AM"));
+		
 	}
 
 }
