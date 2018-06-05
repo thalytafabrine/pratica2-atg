@@ -7,6 +7,9 @@ import org.junit.Test;
 import manager.GraphManageable;
 import manager.GraphManager;
 import model.graph.Graph;
+import model.vertex.VNormal;
+import model.vertex.VWeighted;
+import model.vertex.Vertex;
 
 public class GraphManagerTest {
 	
@@ -47,5 +50,27 @@ public class GraphManagerTest {
 		Assert.assertEquals(meanEdgeWeightedGraph, graphManager.getMeanEdge(weightedGraph), 0);
 		Assert.assertEquals(meanEdgeDisconnectedGraph, graphManager.getMeanEdge(disconnectedGraph), 0);
 	}
-
+	
+	@Test
+	public void testConnected() {
+		Assert.assertTrue(graphManager.connected(simpleGraph));
+		Assert.assertFalse(graphManager.connected(disconnectedGraph));
+		Assert.assertTrue(graphManager.connected(weightedGraph));
+	}
+	
+	@Test
+	public void testShortestPath() {
+		Vertex v1 = new VNormal("1");
+		Vertex v2 = new VNormal("4");
+		String expected = "1 5 4";
+		String actual = graphManager.shortestPath(simpleGraph, v1, v2);
+		Assert.assertEquals(expected, actual);
+		
+		Vertex v3 = new VWeighted("1");
+		Vertex v4 = new VWeighted("10");
+		String expectedWeighted = "1 5 4 10";
+		String actualWeighted = graphManager.shortestPath(weightedGraph, v3, v4);
+		Assert.assertEquals(expectedWeighted, actualWeighted);
+	}
+	
 }
