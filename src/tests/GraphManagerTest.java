@@ -51,7 +51,7 @@ public class GraphManagerTest {
 	
 	@Test
 	public void testGraphRepresentation() {
-		
+		// Sem peso
 		String simpleMatrix = "  1 2 3 4 5" + "\n"+
 				"1 0 1 0 0 1" + "\n"+
 				"2 1 0 0 0 1" + "\n" +
@@ -60,6 +60,33 @@ public class GraphManagerTest {
 				"5 1 1 1 1 0" + "\n";
 		
 		Assert.assertEquals(simpleMatrix, graphManager.graphRepresentation(simpleGraph, "AM"));
+		
+		String simpleList = "1 - 2 5" + "\n" +
+							"2 - 1 5" + "\n" +
+							"3 - 4 5" + "\n" +
+							"4 - 3 5" + "\n" +
+							"5 - 1 2 3 4";
+		
+		Assert.assertEquals(simpleList, graphManager.graphRepresentation(simpleGraph, "AL"));
+		
+		// Com peso
+		String weightMatrix = "  1 2 3 4 5" + "\n" +
+							  "1 0 0.5 0 0 2" + "\n" +
+							  "2 0.5 0 0 0 1" + "\n" +
+							  "3 0 0 0 -2 4" + "\n" +
+							  "4 0 0 -2 0 2" + "\n" +
+							  "5 2 1 4 2 0";
+		
+		Assert.assertEquals(weightMatrix, graphManager.graphRepresentation(weightedGraph, "AM"));
+		
+		String weightList = "1 - 0.5 2" + "\n" +
+							"2 - 0.5 1" + "\n" +
+							"3 - -2 4" + "\n" +
+							"4 - -2 2" + "\n" +
+							"5 - 2 1 4 2";
+		
+		Assert.assertEquals(weightList, graphManager.graphRepresentation(weightedGraph, "AL"));
+		
 		
 	}
 
