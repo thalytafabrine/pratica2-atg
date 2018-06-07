@@ -162,5 +162,119 @@ public class GraphManagerTest {
                 "5 - 2 1" + System.lineSeparator()+
                 "6 - 0 -";
 		Assert.assertEquals(realBFS, bfsResult);
-	}	
+	}
+	
+	@Test
+	public void testDFSWithSimpleGraph() {
+		Vertex initialVertex;
+		String dfsResult;
+		String realDFS;
+		
+		// InitialVertex = 1
+		initialVertex = simpleGraph.getVertices().get(0);
+		
+		dfsResult = graphManager.DFS(simpleGraph, initialVertex);
+		realDFS = "1 - 0 -" + System.lineSeparator() +
+                "2 - 1 1" + System.lineSeparator()+
+                "3 - 3 5" + System.lineSeparator()+
+                "4 - 4 3" + System.lineSeparator()+
+                "5 - 2 2";
+		Assert.assertEquals(realDFS, dfsResult);
+		
+		// InitialVertex = 5
+		initialVertex = simpleGraph.getVertices().get(2);
+		
+		dfsResult = graphManager.DFS(simpleGraph, initialVertex);
+        realDFS = "5 - 0 -" + System.lineSeparator() +
+                "2 - 1 5" + System.lineSeparator()+
+                "1 - 2 2" + System.lineSeparator()+
+                "3 - 1 5" + System.lineSeparator()+
+                "4 - 2 3";
+		Assert.assertEquals(realDFS, dfsResult);
+		
+		// InitialVertex = 3
+		initialVertex = simpleGraph.getVertices().get(3);
+				
+		dfsResult = graphManager.DFS(simpleGraph, initialVertex);
+        realDFS = "3 - 0 -" + System.lineSeparator() +
+                "5 - 1 3" + System.lineSeparator()+
+                "2 - 2 5" + System.lineSeparator()+
+                "1 - 3 2" + System.lineSeparator()+
+                "4 - 2 5";
+		Assert.assertEquals(realDFS, dfsResult);
+	}
+	
+	@Test
+	public void testDFSWithWeightedGraph() {
+		Vertex initialVertex;
+		String dfsResult;
+		String realDFS;
+		
+		// InitialVertex = 1
+		initialVertex = weightedGraph.getVertices().get(0);
+		
+		dfsResult = graphManager.DFS(weightedGraph, initialVertex);
+        realDFS = "1 - 0 -" + System.lineSeparator() +
+                "2 - 1 1" + System.lineSeparator()+
+                "5 - 2 2" + System.lineSeparator()+
+                "3 - 3 5" + System.lineSeparator()+
+                "4 - 4 3" + System.lineSeparator()+
+                "10 - 5 4" + System.lineSeparator()+
+                "9 - 6 10" + System.lineSeparator()+
+                "8 - 7 9" + System.lineSeparator()+
+                "7 - 8 8" + System.lineSeparator()+
+                "6 - 9 7";
+		//Assert.assertEquals(realDFS, dfsResult);
+		
+		// InitialVertex = 8
+		initialVertex = weightedGraph.getVertices().get(7);
+		
+		dfsResult = graphManager.DFS(weightedGraph, initialVertex);
+        realDFS = "8 - 0 -" + System.lineSeparator() +
+                "7 - 1 8" + System.lineSeparator()+
+                "6 - 2 7" + System.lineSeparator()+
+                "2 - 3 6" + System.lineSeparator()+
+                "1 - 4 2" + System.lineSeparator()+
+                "5 - 5 1" + System.lineSeparator()+
+                "3 - 6 5" + System.lineSeparator()+
+                "4 - 7 3" + System.lineSeparator()+
+                "10 - 8 4" + System.lineSeparator()+
+                "9 - 9 10";
+		Assert.assertEquals(realDFS, dfsResult);
+	}
+	
+	@Test
+	public void testDFSWithDisconnectedGraph() {
+		Vertex initialVertex;
+		String dfsResult;
+		String realDFS;
+		
+		// InitialVertex = 1
+		initialVertex = disconnectedGraph.getVertices().get(0);
+
+		dfsResult = graphManager.DFS(disconnectedGraph, initialVertex);
+		realDFS = "1 - 0 -" + System.lineSeparator() +
+                "2 - 1 1" + System.lineSeparator()+
+                "5 - 2 2" + System.lineSeparator()+
+                "6 - 1 1";
+		Assert.assertEquals(realDFS, dfsResult);
+		
+		// InitialVertex = 3
+		initialVertex = disconnectedGraph.getVertices().get(4);
+
+		dfsResult = graphManager.DFS(disconnectedGraph, initialVertex);
+        realDFS = "3 - 0 -" + System.lineSeparator() +
+                "4 - 1 3";
+		Assert.assertEquals(realDFS, dfsResult);
+		
+		// InitialVertex = 6
+		initialVertex = disconnectedGraph.getVertices().get(5);
+
+		dfsResult = graphManager.DFS(disconnectedGraph, initialVertex);
+		realDFS = "6 - 0 -" + System.lineSeparator() +
+                "1 - 1 6" + System.lineSeparator()+
+                "2 - 2 1" + System.lineSeparator()+
+                "5 - 3 2";
+		Assert.assertEquals(realDFS, dfsResult);
+	}
 }
