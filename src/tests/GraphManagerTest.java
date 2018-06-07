@@ -7,22 +7,23 @@ import org.junit.Test;
 import manager.GraphManageable;
 import manager.GraphManager;
 import model.graph.Graph;
-import model.vertex.VNormal;
 import model.vertex.Vertex;
 
 public class GraphManagerTest {
-	
+
 	GraphManageable graphManager;
+	
 	Graph simpleGraph;
 	Graph weightedGraph;
 	Graph disconnectedGraph;
+	
 	Vertex initialVertex;
+	
 	String bfsResult;
 	String realBFS;
 	String dfsResult;
 	String realDFS;
-	
-	
+		
 	@Before
 	public void setUp() {
 		graphManager = new GraphManager();
@@ -67,6 +68,7 @@ public class GraphManagerTest {
                 "3 - 2 5" + System.lineSeparator()+
                 "4 - 2 5" + System.lineSeparator()+
                 "5 - 1 1";
+        
 		Assert.assertEquals(realBFS, bfsResult);
 		
 		// InitialVertex = 5
@@ -78,6 +80,7 @@ public class GraphManagerTest {
                 "3 - 1 5" + System.lineSeparator()+
                 "4 - 1 5" + System.lineSeparator()+
                 "5 - 0 -";
+        
 		Assert.assertEquals(realBFS, bfsResult);
 		
 		// InitialVertex = 3
@@ -89,6 +92,7 @@ public class GraphManagerTest {
                 "3 - 0 -" + System.lineSeparator()+
                 "4 - 1 3" + System.lineSeparator()+
                 "5 - 1 3";
+        
 		Assert.assertEquals(realBFS, bfsResult);
 	}
 
@@ -108,6 +112,7 @@ public class GraphManagerTest {
                 "8 - 4 7" + System.lineSeparator()+
                 "9 - 4 10" + System.lineSeparator()+
                 "10 - 3 4";
+        
 		Assert.assertEquals(realBFS, bfsResult);
 		
 		// InitialVertex = 8
@@ -124,6 +129,7 @@ public class GraphManagerTest {
                 "8 - 0 -" + System.lineSeparator()+
                 "9 - 1 8" + System.lineSeparator()+
                 "10 - 2 9";
+        
 		Assert.assertEquals(realBFS, bfsResult);
 	}
 	
@@ -137,6 +143,7 @@ public class GraphManagerTest {
                 "2 - 1 1" + System.lineSeparator()+
                 "5 - 1 1" + System.lineSeparator()+
                 "6 - 1 1";
+        
 		Assert.assertEquals(realBFS, bfsResult);
 		
 		// InitialVertex = 4
@@ -145,6 +152,7 @@ public class GraphManagerTest {
 		bfsResult = graphManager.BFS(disconnectedGraph, initialVertex);
         realBFS = "3 - 1 4" + System.lineSeparator() +
                 "4 - 0 -";
+        
 		Assert.assertEquals(realBFS, bfsResult);
 		
 		// InitialVertex = 6
@@ -155,6 +163,7 @@ public class GraphManagerTest {
                 "2 - 2 1" + System.lineSeparator()+
                 "5 - 2 1" + System.lineSeparator()+
                 "6 - 0 -";
+		
 		Assert.assertEquals(realBFS, bfsResult);
 	}
 	
@@ -169,6 +178,7 @@ public class GraphManagerTest {
                 "3 - 3 5" + System.lineSeparator()+
                 "4 - 4 3" + System.lineSeparator()+
                 "5 - 2 2";
+		
 		Assert.assertEquals(realDFS, dfsResult);
 		
 		// InitialVertex = 5
@@ -180,6 +190,7 @@ public class GraphManagerTest {
                 "1 - 2 2" + System.lineSeparator()+
                 "3 - 1 5" + System.lineSeparator()+
                 "4 - 2 3";
+        
 		Assert.assertEquals(realDFS, dfsResult);
 		
 		// InitialVertex = 3
@@ -191,6 +202,7 @@ public class GraphManagerTest {
                 "2 - 2 5" + System.lineSeparator()+
                 "1 - 3 2" + System.lineSeparator()+
                 "4 - 2 5";
+        
 		Assert.assertEquals(realDFS, dfsResult);
 	}
 	
@@ -210,6 +222,7 @@ public class GraphManagerTest {
                 "8 - 7 9" + System.lineSeparator()+
                 "7 - 8 8" + System.lineSeparator()+
                 "6 - 9 7";
+        
 		Assert.assertEquals(realDFS, dfsResult);
 		
 		// InitialVertex = 8
@@ -226,6 +239,7 @@ public class GraphManagerTest {
                 "4 - 7 3" + System.lineSeparator()+
                 "10 - 8 4" + System.lineSeparator()+
                 "9 - 9 10";
+        
 		Assert.assertEquals(realDFS, dfsResult);
 	}
 	
@@ -239,6 +253,7 @@ public class GraphManagerTest {
                 "2 - 1 1" + System.lineSeparator()+
                 "5 - 2 2" + System.lineSeparator()+
                 "6 - 1 1";
+		
 		Assert.assertEquals(realDFS, dfsResult);
 		
 		// InitialVertex = 3
@@ -247,6 +262,7 @@ public class GraphManagerTest {
 		dfsResult = graphManager.DFS(disconnectedGraph, initialVertex);
         realDFS = "3 - 0 -" + System.lineSeparator() +
                 "4 - 1 3";
+        
 		Assert.assertEquals(realDFS, dfsResult);
 		
 		// InitialVertex = 6
@@ -257,6 +273,7 @@ public class GraphManagerTest {
                 "1 - 1 6" + System.lineSeparator()+
                 "2 - 2 1" + System.lineSeparator()+
                 "5 - 3 2";
+		
 		Assert.assertEquals(realDFS, dfsResult);
 	}
 }
