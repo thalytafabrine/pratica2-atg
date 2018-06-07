@@ -14,7 +14,7 @@ public class GraphManagerTest {
 	Graph simpleGraph;
 	Graph weightedGraph;
 	Graph disconnectedGraph;
-	Graph loopGraph;
+
 	
 	@Before
 	public void setUp() {
@@ -22,7 +22,7 @@ public class GraphManagerTest {
 		simpleGraph = graphManager.readGraph("resources/simpleGraph.txt");
 		weightedGraph = graphManager.readWeightedGraph("resources/weightedGraph.txt");
 		disconnectedGraph = graphManager.readGraph("resources/disconnectedGraph.txt");
-		loopGraph = graphManager.readGraph("resources/loopGraph.txt");
+		
 	}
 	
 	@Test
@@ -52,56 +52,51 @@ public class GraphManagerTest {
 	}
 	
 	@Test
-	public void testGraphRepresentation() {
-		
-		// Loop sem peso
-		String loopMatrix = "  1 2 3 " + "\n" +
-							"1 1 1 1 " + "\n" +
-							"2 1 0 0 " + "\n" +
-							"3 1 0 0 " + "\n";
-		Assert.assertEquals(loopMatrix, graphManager.graphRepresentation(loopGraph, "AM"));
-		
-		String loopList = "1 - 1 2 3 " + "\n" +
-						  "2 - 1 " + "\n" +
-						  "3 - 1 " + "\n";
-		
-		Assert.assertEquals(loopList, graphManager.graphRepresentation(loopGraph, "AL"));
-		
-		// Sem peso
+	public void testSimpleGraphMatrix() {
 		String simpleMatrix = "  1 2 3 4 5 " + "\n"+
-				"1 0 1 0 0 1 " + "\n"+
-				"2 1 0 0 0 1 " + "\n" +
-				"3 0 0 0 1 1 " + "\n" +
-				"4 0 0 1 0 1 " + "\n" +
-				"5 1 1 1 1 0 " + "\n";
+							  "1 0 1 0 0 1 " + "\n"+
+							  "2 1 0 0 0 1 " + "\n" +
+							  "3 0 0 0 1 1 " + "\n" +
+							  "4 0 0 1 0 1 " + "\n" +
+							  "5 1 1 1 1 0 " + "\n";
 		
 		// A matriz de adjacência está funcionando particialmente funcionando - a primeira linha e coluna não está ordenada
 		Assert.assertEquals(simpleMatrix, graphManager.graphRepresentation(simpleGraph, "AM"));
 		
+	}
+	
+	@Test
+	public void testSimpleGraphList() {
 		String simpleList = "1 - 2 5 " + "\n" +
 							"2 - 1 5 " + "\n" +
 							"3 - 4 5 " + "\n" +
 							"4 - 3 5 " + "\n" +
 							"5 - 1 2 3 4 " + "\n";
-		
+
 		// Mesmo problema da matriz, a lista não está ordenada
 		Assert.assertEquals(simpleList, graphManager.graphRepresentation(simpleGraph, "AL"));
-		
-		// Com peso
+	}
+	
+	@Test
+	public void testWeightGraphMatrix() {
 		String weightMatrix = "  1 2 3 4 5 6 7 8 9 10 " + "\n" +
-							  "1 0 0.1 0 0 1 0 0 0 0 0 " + "\n" +
-							  "2 0.1 0 0 0 0.2 -7.6 0 0 0 0 " + "\n" +
-							  "3 0 0 0 -9.5 5 0 1 0 0 0 " + "\n" +
-							  "4 0 0 -9.5 0 2.3 0 0 0 0 8 " + "\n" +
-							  "5 1 0.2 5 2.3 0 0 0 0 0 0 " + "\n" +
-							  "6 0 -7.6 0 0 0 0 2 0 0 0 " + "\n" +
-							  "7 0 0 1 0 0 2 0 22 0 0 " + "\n" +
-							  "8 0 0 0 0 0 0 22 0 -5.9 0 " + "\n" +
-							  "9 0 0 0 0 0 0 0 -5.9 0 6 " + "\n" +
-							  "10 0 0 0 8 0 0 0 0 6 0 " + "\n";
-		
-		
+				  			  "1 0 0.1 0 0 1 0 0 0 0 0 " + "\n" +
+				  			  "2 0.1 0 0 0 0.2 -7.6 0 0 0 0 " + "\n" +
+				  			  "3 0 0 0 -9.5 5 0 1 0 0 0 " + "\n" +
+				  			  "4 0 0 -9.5 0 2.3 0 0 0 0 8 " + "\n" +
+				  			  "5 1 0.2 5 2.3 0 0 0 0 0 0 " + "\n" +
+				  			  "6 0 -7.6 0 0 0 0 2 0 0 0 " + "\n" +
+				  			  "7 0 0 1 0 0 2 0 22 0 0 " + "\n" +
+				  			  "8 0 0 0 0 0 0 22 0 -5.9 0 " + "\n" +
+				  			  "9 0 0 0 0 0 0 0 -5.9 0 6 " + "\n" +
+				  			  "10 0 0 0 8 0 0 0 0 6 0 " + "\n";
+
+
 		Assert.assertEquals(weightMatrix, graphManager.graphRepresentation(weightedGraph, "AM"));
+	}
+	
+	@Test
+	public void testWeightList() {
 		
 		String weightList = "1 - 2(0.1) 5(1) " + "\n" +
 							"2 - 1(0.1) 5(0.2) 6(-7.6) " + "\n" +
@@ -115,8 +110,6 @@ public class GraphManagerTest {
 							"10 - 4(8) 9(6) " + "\n";
 		
 		Assert.assertEquals(weightList, graphManager.graphRepresentation(weightedGraph, "AL"));
-		
-		
 	}
 
 }
