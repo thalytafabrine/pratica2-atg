@@ -16,6 +16,12 @@ public class GraphManagerTest {
 	Graph simpleGraph;
 	Graph weightedGraph;
 	Graph disconnectedGraph;
+	Vertex initialVertex;
+	String bfsResult;
+	String realBFS;
+	String dfsResult;
+	String realDFS;
+	
 	
 	@Before
 	public void setUp() {
@@ -51,11 +57,7 @@ public class GraphManagerTest {
 	}
 	
 	@Test
-	public void testBFSWithSimpleGraph() {
-		Vertex initialVertex;
-		String bfsResult;
-		String realBFS;
-		
+	public void testBFSWithSimpleGraph() {	
 		// InitialVertex = 1
 		initialVertex = simpleGraph.getVertices().get(0);
 		
@@ -91,11 +93,7 @@ public class GraphManagerTest {
 	}
 
 	@Test
-	public void testBFSWithWeightedGraph() {
-		Vertex initialVertex;
-		String bfsResult;
-		String realBFS;
-		
+	public void testBFSWithWeightedGraph() {	
 		// InitialVertex = 1
 		initialVertex = weightedGraph.getVertices().get(0);
 		
@@ -131,10 +129,6 @@ public class GraphManagerTest {
 	
 	@Test
 	public void testBFSWithDisconnectedGraph() {
-		Vertex initialVertex;
-		String bfsResult;
-		String realBFS;
-		
 		// InitialVertex = 1
 		initialVertex = disconnectedGraph.getVertices().get(0);
 		
@@ -166,10 +160,6 @@ public class GraphManagerTest {
 	
 	@Test
 	public void testDFSWithSimpleGraph() {
-		Vertex initialVertex;
-		String dfsResult;
-		String realDFS;
-		
 		// InitialVertex = 1
 		initialVertex = simpleGraph.getVertices().get(0);
 		
@@ -206,10 +196,6 @@ public class GraphManagerTest {
 	
 	@Test
 	public void testDFSWithWeightedGraph() {
-		Vertex initialVertex;
-		String dfsResult;
-		String realDFS;
-		
 		// InitialVertex = 1
 		initialVertex = weightedGraph.getVertices().get(0);
 		
@@ -224,7 +210,7 @@ public class GraphManagerTest {
                 "8 - 7 9" + System.lineSeparator()+
                 "7 - 8 8" + System.lineSeparator()+
                 "6 - 9 7";
-		//Assert.assertEquals(realDFS, dfsResult);
+		Assert.assertEquals(realDFS, dfsResult);
 		
 		// InitialVertex = 8
 		initialVertex = weightedGraph.getVertices().get(7);
@@ -245,10 +231,6 @@ public class GraphManagerTest {
 	
 	@Test
 	public void testDFSWithDisconnectedGraph() {
-		Vertex initialVertex;
-		String dfsResult;
-		String realDFS;
-		
 		// InitialVertex = 1
 		initialVertex = disconnectedGraph.getVertices().get(0);
 
