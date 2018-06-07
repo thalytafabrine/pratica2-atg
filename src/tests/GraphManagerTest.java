@@ -53,12 +53,13 @@ public class GraphManagerTest {
 	
 	@Test
 	public void testSimpleGraphMatrix() {
-		String simpleMatrix = "  1 2 3 4 5 " + "\n"+
-							  "1 0 1 0 0 1 " + "\n"+
-							  "2 1 0 0 0 1 " + "\n" +
-							  "3 0 0 0 1 1 " + "\n" +
-							  "4 0 0 1 0 1 " + "\n" +
-							  "5 1 1 1 1 0 " + "\n";
+		String simpleMatrix = 
+					"  1 2 3 4 5 " + "\n"+
+					"1 0 1 0 0 1 " + "\n"+
+					"2 1 0 0 0 1 " + "\n" +
+					"3 0 0 0 1 1 " + "\n" +
+					"4 0 0 1 0 1 " + "\n" +
+					"5 1 1 1 1 0 " + "\n";
 		
 		// A matriz de adjacência está funcionando particialmente funcionando - a primeira linha e coluna não está ordenada
 		Assert.assertEquals(simpleMatrix, graphManager.graphRepresentation(simpleGraph, "AM"));
@@ -67,11 +68,12 @@ public class GraphManagerTest {
 	
 	@Test
 	public void testSimpleGraphList() {
-		String simpleList = "1 - 2 5 " + "\n" +
-							"2 - 1 5 " + "\n" +
-							"3 - 4 5 " + "\n" +
-							"4 - 3 5 " + "\n" +
-							"5 - 1 2 3 4 " + "\n";
+		String simpleList = 
+				"1 - 2 5 " + "\n" +
+				"2 - 1 5 " + "\n" +
+				"3 - 4 5 " + "\n" +
+				"4 - 3 5 " + "\n" +
+				"5 - 1 2 3 4 " + "\n";
 
 		// Mesmo problema da matriz, a lista não está ordenada
 		Assert.assertEquals(simpleList, graphManager.graphRepresentation(simpleGraph, "AL"));
