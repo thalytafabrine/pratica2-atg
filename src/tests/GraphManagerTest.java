@@ -139,7 +139,7 @@ public class GraphManagerTest {
 		initialVertex = simpleGraph.getVertices().get(0);
 		
 		bfsResult = graphManager.BFS(simpleGraph, initialVertex);
-        realBFS = "1 - 0 -" + System.lineSeparator() +
+        	realBFS = "1 - 0 -" + System.lineSeparator() +
                 "2 - 1 1" + System.lineSeparator()+
                 "3 - 2 5" + System.lineSeparator()+
                 "4 - 2 5" + System.lineSeparator()+
@@ -151,7 +151,7 @@ public class GraphManagerTest {
 		initialVertex = simpleGraph.getVertices().get(2);
 		
 		bfsResult = graphManager.BFS(simpleGraph, initialVertex);
-        realBFS = "1 - 1 5" + System.lineSeparator() +
+        	realBFS = "1 - 1 5" + System.lineSeparator() +
                 "2 - 1 5" + System.lineSeparator()+
                 "3 - 1 5" + System.lineSeparator()+
                 "4 - 1 5" + System.lineSeparator()+
@@ -163,7 +163,7 @@ public class GraphManagerTest {
 		initialVertex = simpleGraph.getVertices().get(3);
 		
 		bfsResult = graphManager.BFS(simpleGraph, initialVertex);
-        realBFS = "1 - 2 5" + System.lineSeparator() +
+        	realBFS = "1 - 2 5" + System.lineSeparator() +
                 "2 - 2 5" + System.lineSeparator()+
                 "3 - 0 -" + System.lineSeparator()+
                 "4 - 1 3" + System.lineSeparator()+
@@ -178,7 +178,7 @@ public class GraphManagerTest {
 		initialVertex = weightedGraph.getVertices().get(0);
 		
 		bfsResult = graphManager.BFS(weightedGraph, initialVertex);
-        realBFS = "1 - 0 -" + System.lineSeparator() +
+        	realBFS = "1 - 0 -" + System.lineSeparator() +
                 "2 - 1 1" + System.lineSeparator()+
                 "3 - 2 5" + System.lineSeparator()+
                 "4 - 2 5" + System.lineSeparator()+
@@ -195,7 +195,7 @@ public class GraphManagerTest {
 		initialVertex = weightedGraph.getVertices().get(7);
 		
 		bfsResult = graphManager.BFS(weightedGraph, initialVertex);
-        realBFS = "1 - 4 2" + System.lineSeparator() +
+        	realBFS = "1 - 4 2" + System.lineSeparator() +
                 "2 - 3 6" + System.lineSeparator()+
                 "3 - 2 7" + System.lineSeparator()+
                 "4 - 3 3" + System.lineSeparator()+
@@ -215,7 +215,7 @@ public class GraphManagerTest {
 		initialVertex = disconnectedGraph.getVertices().get(0);
 		
 		bfsResult = graphManager.BFS(disconnectedGraph, initialVertex);
-        realBFS = "1 - 0 -" + System.lineSeparator() +
+        	realBFS = "1 - 0 -" + System.lineSeparator() +
                 "2 - 1 1" + System.lineSeparator()+
                 "5 - 1 1" + System.lineSeparator()+
                 "6 - 1 1";
@@ -226,7 +226,7 @@ public class GraphManagerTest {
 		initialVertex = disconnectedGraph.getVertices().get(4);
 		
 		bfsResult = graphManager.BFS(disconnectedGraph, initialVertex);
-        realBFS = "3 - 1 4" + System.lineSeparator() +
+        	realBFS = "3 - 1 4" + System.lineSeparator() +
                 "4 - 0 -";
         
 		Assert.assertEquals(realBFS, bfsResult);
@@ -261,7 +261,7 @@ public class GraphManagerTest {
 		initialVertex = simpleGraph.getVertices().get(2);
 		
 		dfsResult = graphManager.DFS(simpleGraph, initialVertex);
-        realDFS = "5 - 0 -" + System.lineSeparator() +
+        	realDFS = "5 - 0 -" + System.lineSeparator() +
                 "2 - 1 5" + System.lineSeparator()+
                 "1 - 2 2" + System.lineSeparator()+
                 "3 - 1 5" + System.lineSeparator()+
@@ -273,7 +273,7 @@ public class GraphManagerTest {
 		initialVertex = simpleGraph.getVertices().get(3);
 				
 		dfsResult = graphManager.DFS(simpleGraph, initialVertex);
-        realDFS = "3 - 0 -" + System.lineSeparator() +
+        	realDFS = "3 - 0 -" + System.lineSeparator() +
                 "5 - 1 3" + System.lineSeparator()+
                 "2 - 2 5" + System.lineSeparator()+
                 "1 - 3 2" + System.lineSeparator()+
@@ -288,7 +288,7 @@ public class GraphManagerTest {
 		initialVertex = weightedGraph.getVertices().get(0);
 		
 		dfsResult = graphManager.DFS(weightedGraph, initialVertex);
-        realDFS = "1 - 0 -" + System.lineSeparator() +
+        	realDFS = "1 - 0 -" + System.lineSeparator() +
                 "2 - 1 1" + System.lineSeparator()+
                 "5 - 2 2" + System.lineSeparator()+
                 "3 - 3 5" + System.lineSeparator()+
@@ -305,7 +305,7 @@ public class GraphManagerTest {
 		initialVertex = weightedGraph.getVertices().get(7);
 		
 		dfsResult = graphManager.DFS(weightedGraph, initialVertex);
-        realDFS = "8 - 0 -" + System.lineSeparator() +
+        	realDFS = "8 - 0 -" + System.lineSeparator() +
                 "7 - 1 8" + System.lineSeparator()+
                 "6 - 2 7" + System.lineSeparator()+
                 "2 - 3 6" + System.lineSeparator()+
@@ -324,7 +324,7 @@ public class GraphManagerTest {
 		// InitialVertex = 1
 		initialVertex = disconnectedGraph.getVertices().get(0);
     
-    dfsResult = graphManager.DFS(disconnectedGraph, initialVertex);
+    		dfsResult = graphManager.DFS(disconnectedGraph, initialVertex);
 		realDFS = "1 - 0 -" + System.lineSeparator() +
                 "2 - 1 1" + System.lineSeparator()+
                 "5 - 2 2" + System.lineSeparator()+
@@ -336,7 +336,7 @@ public class GraphManagerTest {
 		initialVertex = disconnectedGraph.getVertices().get(4);
 
 		dfsResult = graphManager.DFS(disconnectedGraph, initialVertex);
-        realDFS = "3 - 0 -" + System.lineSeparator() +
+        	realDFS = "3 - 0 -" + System.lineSeparator() +
                 "4 - 1 3";
         
 		Assert.assertEquals(realDFS, dfsResult);
