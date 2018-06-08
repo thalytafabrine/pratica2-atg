@@ -276,4 +276,26 @@ public class GraphManagerTest {
 		
 		Assert.assertEquals(realDFS, dfsResult);
 	}
+	
+	/**
+	 * Não é possível gerar a MST de um grafo desconectado.
+	 */
+	@Test
+	public void testMSTOfDisconnectedGraph() {
+		String mst = graphManager.mst(disconnectedGraph);
+		Assert.assertTrue(mst.isEmpty());
+	}
+	
+	@Test
+	public void testMSTOfCiclicGraph() {
+		Graph ciclicGraph = graphManager.readGraph("resources/ciclicGraph.txt");
+		String mst = graphManager.mst(ciclicGraph);
+		
+		String expectedMST = new StringBuilder()
+				.append("1 - 1 -").append(System.lineSeparator())
+				.append("2 - 1 2").append(System.lineSeparator())
+				.append("3 - 2 3").toString();
+		
+		Assert.assertEquals(expectedMST, mst);
+	}
 }
