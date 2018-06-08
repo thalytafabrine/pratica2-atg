@@ -1,0 +1,10 @@
+<<<<<<< HEAD
+/tests/
+/nullGraph.txt
+=======
+/disconnectedGraph.txt
+/simpleGraph.txt
+/tests/
+/weightedGraph.txt
+/ciclicGraph.txt
+>>>>>>> master
