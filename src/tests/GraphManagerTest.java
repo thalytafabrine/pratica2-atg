@@ -7,16 +7,27 @@ import org.junit.Test;
 import manager.GraphManageable;
 import manager.GraphManager;
 import model.graph.Graph;
+import model.vertex.VNormal;
+import model.vertex.VWeighted;
+import model.vertex.Vertex;
 
 public class GraphManagerTest {
-	
+
 	GraphManageable graphManager;
+	
 	Graph simpleGraph;
 	Graph weightedGraph;
 	Graph disconnectedGraph;
 	Graph cycleGraph;
 	Graph cycleWeightGraph;
-	
+	Graph ciclicGraph;	
+	Vertex initialVertex;
+	Vertex finalVertex;
+	String bfsResult;
+	String realBFS;
+	String dfsResult;
+	String realDFS;
+  
 	@Before
 	public void setUp() {
 		graphManager = new GraphManager();
@@ -25,6 +36,7 @@ public class GraphManagerTest {
 		disconnectedGraph = graphManager.readGraph("resources/disconnectedGraph.txt");
 		cycleGraph = graphManager.readGraph("resources/cycleGraph.txt");
 		cycleWeightGraph = graphManager.readWeightedGraph("resources/cycleWeightGraph.txt");
+		ciclicGraph = graphManager.readGraph("resources/ciclicGraph.txt");
 	}
 	
 	@Test
@@ -120,6 +132,226 @@ public class GraphManagerTest {
 		
 		Assert.assertEquals(weightList, graphManager.graphRepresentation(weightedGraph, "AL"));
 	}
+	
+	@Test
+	public void testBFSWithSimpleGraph() {	
+		// InitialVertex = 1
+		initialVertex = simpleGraph.getVertices().get(0);
+		
+		bfsResult = graphManager.BFS(simpleGraph, initialVertex);
+        realBFS = "1 - 0 -" + System.lineSeparator() +
+                "2 - 1 1" + System.lineSeparator()+
+                "3 - 2 5" + System.lineSeparator()+
+                "4 - 2 5" + System.lineSeparator()+
+                "5 - 1 1";
+        
+		Assert.assertEquals(realBFS, bfsResult);
+		
+		// InitialVertex = 5
+		initialVertex = simpleGraph.getVertices().get(2);
+		
+		bfsResult = graphManager.BFS(simpleGraph, initialVertex);
+        realBFS = "1 - 1 5" + System.lineSeparator() +
+                "2 - 1 5" + System.lineSeparator()+
+                "3 - 1 5" + System.lineSeparator()+
+                "4 - 1 5" + System.lineSeparator()+
+                "5 - 0 -";
+        
+		Assert.assertEquals(realBFS, bfsResult);
+		
+		// InitialVertex = 3
+		initialVertex = simpleGraph.getVertices().get(3);
+		
+		bfsResult = graphManager.BFS(simpleGraph, initialVertex);
+        realBFS = "1 - 2 5" + System.lineSeparator() +
+                "2 - 2 5" + System.lineSeparator()+
+                "3 - 0 -" + System.lineSeparator()+
+                "4 - 1 3" + System.lineSeparator()+
+                "5 - 1 3";
+        
+		Assert.assertEquals(realBFS, bfsResult);
+	}
+
+	@Test
+	public void testBFSWithWeightedGraph() {	
+		// InitialVertex = 1
+		initialVertex = weightedGraph.getVertices().get(0);
+		
+		bfsResult = graphManager.BFS(weightedGraph, initialVertex);
+        realBFS = "1 - 0 -" + System.lineSeparator() +
+                "2 - 1 1" + System.lineSeparator()+
+                "3 - 2 5" + System.lineSeparator()+
+                "4 - 2 5" + System.lineSeparator()+
+                "5 - 1 1" + System.lineSeparator()+
+                "6 - 2 2" + System.lineSeparator()+
+                "7 - 3 6" + System.lineSeparator()+
+                "8 - 4 7" + System.lineSeparator()+
+                "9 - 4 10" + System.lineSeparator()+
+                "10 - 3 4";
+        
+		Assert.assertEquals(realBFS, bfsResult);
+		
+		// InitialVertex = 8
+		initialVertex = weightedGraph.getVertices().get(7);
+		
+		bfsResult = graphManager.BFS(weightedGraph, initialVertex);
+        realBFS = "1 - 4 2" + System.lineSeparator() +
+                "2 - 3 6" + System.lineSeparator()+
+                "3 - 2 7" + System.lineSeparator()+
+                "4 - 3 3" + System.lineSeparator()+
+                "5 - 3 3" + System.lineSeparator()+
+                "6 - 2 7" + System.lineSeparator()+
+                "7 - 1 8" + System.lineSeparator()+
+                "8 - 0 -" + System.lineSeparator()+
+                "9 - 1 8" + System.lineSeparator()+
+                "10 - 2 9";
+        
+		Assert.assertEquals(realBFS, bfsResult);
+	}
+	
+	@Test
+	public void testBFSWithDisconnectedGraph() {
+		// InitialVertex = 1
+		initialVertex = disconnectedGraph.getVertices().get(0);
+		
+		bfsResult = graphManager.BFS(disconnectedGraph, initialVertex);
+        realBFS = "1 - 0 -" + System.lineSeparator() +
+                "2 - 1 1" + System.lineSeparator()+
+                "5 - 1 1" + System.lineSeparator()+
+                "6 - 1 1";
+        
+		Assert.assertEquals(realBFS, bfsResult);
+		
+		// InitialVertex = 4
+		initialVertex = disconnectedGraph.getVertices().get(4);
+		
+		bfsResult = graphManager.BFS(disconnectedGraph, initialVertex);
+        realBFS = "3 - 1 4" + System.lineSeparator() +
+                "4 - 0 -";
+        
+		Assert.assertEquals(realBFS, bfsResult);
+		
+		// InitialVertex = 6
+		initialVertex = disconnectedGraph.getVertices().get(5);
+		
+		bfsResult = graphManager.BFS(disconnectedGraph, initialVertex);
+		realBFS = "1 - 1 6" + System.lineSeparator() +
+                "2 - 2 1" + System.lineSeparator()+
+                "5 - 2 1" + System.lineSeparator()+
+                "6 - 0 -";
+		
+		Assert.assertEquals(realBFS, bfsResult);
+	}
+	
+	@Test
+	public void testDFSWithSimpleGraph() {
+		// InitialVertex = 1
+		initialVertex = simpleGraph.getVertices().get(0);
+		
+		dfsResult = graphManager.DFS(simpleGraph, initialVertex);
+		realDFS = "1 - 0 -" + System.lineSeparator() +
+                "2 - 1 1" + System.lineSeparator()+
+                "3 - 3 5" + System.lineSeparator()+
+                "4 - 4 3" + System.lineSeparator()+
+                "5 - 2 2";
+		
+		Assert.assertEquals(realDFS, dfsResult);
+		
+		// InitialVertex = 5
+		initialVertex = simpleGraph.getVertices().get(2);
+		
+		dfsResult = graphManager.DFS(simpleGraph, initialVertex);
+        realDFS = "5 - 0 -" + System.lineSeparator() +
+                "2 - 1 5" + System.lineSeparator()+
+                "1 - 2 2" + System.lineSeparator()+
+                "3 - 1 5" + System.lineSeparator()+
+                "4 - 2 3";
+        
+		Assert.assertEquals(realDFS, dfsResult);
+		
+		// InitialVertex = 3
+		initialVertex = simpleGraph.getVertices().get(3);
+				
+		dfsResult = graphManager.DFS(simpleGraph, initialVertex);
+        realDFS = "3 - 0 -" + System.lineSeparator() +
+                "5 - 1 3" + System.lineSeparator()+
+                "2 - 2 5" + System.lineSeparator()+
+                "1 - 3 2" + System.lineSeparator()+
+                "4 - 2 5";
+        
+		Assert.assertEquals(realDFS, dfsResult);
+	}
+	
+	@Test
+	public void testDFSWithWeightedGraph() {
+		// InitialVertex = 1
+		initialVertex = weightedGraph.getVertices().get(0);
+		
+		dfsResult = graphManager.DFS(weightedGraph, initialVertex);
+        realDFS = "1 - 0 -" + System.lineSeparator() +
+                "2 - 1 1" + System.lineSeparator()+
+                "5 - 2 2" + System.lineSeparator()+
+                "3 - 3 5" + System.lineSeparator()+
+                "4 - 4 3" + System.lineSeparator()+
+                "10 - 5 4" + System.lineSeparator()+
+                "9 - 6 10" + System.lineSeparator()+
+                "8 - 7 9" + System.lineSeparator()+
+                "7 - 8 8" + System.lineSeparator()+
+                "6 - 9 7";
+        
+		Assert.assertEquals(realDFS, dfsResult);
+		
+		// InitialVertex = 8
+		initialVertex = weightedGraph.getVertices().get(7);
+		
+		dfsResult = graphManager.DFS(weightedGraph, initialVertex);
+        realDFS = "8 - 0 -" + System.lineSeparator() +
+                "7 - 1 8" + System.lineSeparator()+
+                "6 - 2 7" + System.lineSeparator()+
+                "2 - 3 6" + System.lineSeparator()+
+                "1 - 4 2" + System.lineSeparator()+
+                "5 - 5 1" + System.lineSeparator()+
+                "3 - 6 5" + System.lineSeparator()+
+                "4 - 7 3" + System.lineSeparator()+
+                "10 - 8 4" + System.lineSeparator()+
+                "9 - 9 10";
+        
+		Assert.assertEquals(realDFS, dfsResult);
+	}
+	
+	@Test
+	public void testDFSWithDisconnectedGraph() {
+		// InitialVertex = 1
+		initialVertex = disconnectedGraph.getVertices().get(0);
+    
+    dfsResult = graphManager.DFS(disconnectedGraph, initialVertex);
+		realDFS = "1 - 0 -" + System.lineSeparator() +
+                "2 - 1 1" + System.lineSeparator()+
+                "5 - 2 2" + System.lineSeparator()+
+                "6 - 1 1";
+		
+		Assert.assertEquals(realDFS, dfsResult);
+		
+		// InitialVertex = 3
+		initialVertex = disconnectedGraph.getVertices().get(4);
+
+		dfsResult = graphManager.DFS(disconnectedGraph, initialVertex);
+        realDFS = "3 - 0 -" + System.lineSeparator() +
+                "4 - 1 3";
+        
+		Assert.assertEquals(realDFS, dfsResult);
+		
+		// InitialVertex = 6
+		initialVertex = disconnectedGraph.getVertices().get(5);
+
+		dfsResult = graphManager.DFS(disconnectedGraph, initialVertex);
+		realDFS = "6 - 0 -" + System.lineSeparator() +
+                "1 - 1 6" + System.lineSeparator()+
+                "2 - 2 1" + System.lineSeparator()+
+                "5 - 3 2";
+		
+		Assert.assertEquals(realDFS, dfsResult);
+	}
 
 	@Test
 	public void testSimpleMatrixCycle() {
@@ -165,5 +397,59 @@ public class GraphManagerTest {
 				"4 - 1(5) 3(5) " + "\n";
 		Assert.assertEquals(cycleList, graphManager.graphRepresentation(cycleWeightGraph, "AL"));
 	}
+
+	@Test
+	public void testConnected() {
+		Assert.assertTrue(graphManager.connected(simpleGraph));
+		Assert.assertFalse(graphManager.connected(disconnectedGraph));
+		Assert.assertTrue(graphManager.connected(weightedGraph));
+	}
 	
+	@Test
+	public void testShortestPathSimpleGraph() {
+		initialVertex = new VNormal("1");
+		finalVertex = new VNormal("4");
+		String expected = "1 5 4";
+		String actual = graphManager.shortestPath(simpleGraph, initialVertex, finalVertex);
+		Assert.assertEquals(expected, actual);		
+	}
+	
+	@Test
+	public void testeShortesPathSimpleGraphReturning() {
+		initialVertex = new VNormal("3");
+		finalVertex = new VNormal("2");
+		String expected = "3 5 2";
+		String actual = graphManager.shortestPath(simpleGraph, initialVertex, finalVertex);
+		Assert.assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void testShortestPathWeightedGraph() {
+		initialVertex = new VWeighted("1");
+		finalVertex = new VWeighted("10");
+		String expected = "1 2 6 7 3 4 10";
+		String actual = graphManager.shortestPath(weightedGraph, initialVertex, finalVertex);
+		Assert.assertEquals(expected, actual);
+	}
+	
+	/**
+	 * Não é possível gerar a MST de um grafo desconectado.
+	 */
+	@Test
+	public void testMSTOfDisconnectedGraph() {
+		String mst = graphManager.mst(disconnectedGraph);
+		Assert.assertTrue(mst.isEmpty());
+	}
+	
+	@Test
+	public void testMSTOfCiclicGraph() {
+		String mst = graphManager.mst(ciclicGraph);
+		
+		String expectedMST = new StringBuilder()
+				.append("1 - 1 -").append(System.lineSeparator())
+				.append("2 - 1 2").append(System.lineSeparator())
+				.append("3 - 2 3").toString();
+		
+		Assert.assertEquals(expectedMST, mst);
+	}
 }
