@@ -17,6 +17,8 @@ public class GraphManagerTest {
 	Graph simpleGraph;
 	Graph weightedGraph;
 	Graph disconnectedGraph;
+	Vertex initialVertex;
+	Vertex finalVertex;
 	
 	@Before
 	public void setUp() {
@@ -59,18 +61,29 @@ public class GraphManagerTest {
 	}
 	
 	@Test
-	public void testShortestPath() {
-		Vertex v1 = new VNormal("1");
-		Vertex v2 = new VNormal("4");
+	public void testShortestPathSimpleGraph() {
+		initialVertex = new VNormal("1");
+		finalVertex = new VNormal("4");
 		String expected = "1 5 4";
-		String actual = graphManager.shortestPath(simpleGraph, v1, v2);
-		Assert.assertEquals(expected, actual);
-		
-		Vertex v3 = new VWeighted("1");
-		Vertex v4 = new VWeighted("10");
-		String expectedWeighted = "1 5 4 10";
-		String actualWeighted = graphManager.shortestPath(weightedGraph, v3, v4);
-		Assert.assertEquals(expectedWeighted, actualWeighted);
+		String actual = graphManager.shortestPath(simpleGraph, initialVertex, finalVertex);
+		Assert.assertEquals(expected, actual);		
 	}
 	
+	@Test
+	public void testeShortesPathSimpleGraphReturning() {
+		initialVertex = new VNormal("3");
+		finalVertex = new VNormal("2");
+		String expected = "3 5 2";
+		String actual = graphManager.shortestPath(simpleGraph, initialVertex, finalVertex);
+		Assert.assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void testShortestPathWeightedGraph() {
+		initialVertex = new VWeighted("1");
+		finalVertex = new VWeighted("10");
+		String expected = "1 2 6 7 3 4 10";
+		String actual = graphManager.shortestPath(weightedGraph, initialVertex, finalVertex);
+		Assert.assertEquals(expected, actual);
+	}	
 }
