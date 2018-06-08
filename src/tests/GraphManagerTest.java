@@ -7,6 +7,8 @@ import org.junit.Test;
 import manager.GraphManageable;
 import manager.GraphManager;
 import model.graph.Graph;
+import model.vertex.VNormal;
+import model.vertex.VWeighted;
 import model.vertex.Vertex;
 
 public class GraphManagerTest {
@@ -16,10 +18,9 @@ public class GraphManagerTest {
 	Graph simpleGraph;
 	Graph weightedGraph;
 	Graph disconnectedGraph;
-
-	
+	Graph ciclicGraph;	
 	Vertex initialVertex;
-	
+	Vertex finalVertex;
 	String bfsResult;
 	String realBFS;
 	String dfsResult;
@@ -31,7 +32,7 @@ public class GraphManagerTest {
 		simpleGraph = graphManager.readGraph("resources/simpleGraph.txt");
 		weightedGraph = graphManager.readWeightedGraph("resources/weightedGraph.txt");
 		disconnectedGraph = graphManager.readGraph("resources/disconnectedGraph.txt");
-		
+		ciclicGraph = graphManager.readGraph("resources/ciclicGraph.txt");
 	}
 	
 	@Test
@@ -348,6 +349,40 @@ public class GraphManagerTest {
 		Assert.assertEquals(realDFS, dfsResult);
 	}
 	
+	@Test
+	public void testConnected() {
+		Assert.assertTrue(graphManager.connected(simpleGraph));
+		Assert.assertFalse(graphManager.connected(disconnectedGraph));
+		Assert.assertTrue(graphManager.connected(weightedGraph));
+	}
+	
+	@Test
+	public void testShortestPathSimpleGraph() {
+		initialVertex = new VNormal("1");
+		finalVertex = new VNormal("4");
+		String expected = "1 5 4";
+		String actual = graphManager.shortestPath(simpleGraph, initialVertex, finalVertex);
+		Assert.assertEquals(expected, actual);		
+	}
+	
+	@Test
+	public void testeShortesPathSimpleGraphReturning() {
+		initialVertex = new VNormal("3");
+		finalVertex = new VNormal("2");
+		String expected = "3 5 2";
+		String actual = graphManager.shortestPath(simpleGraph, initialVertex, finalVertex);
+		Assert.assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void testShortestPathWeightedGraph() {
+		initialVertex = new VWeighted("1");
+		finalVertex = new VWeighted("10");
+		String expected = "1 2 6 7 3 4 10";
+		String actual = graphManager.shortestPath(weightedGraph, initialVertex, finalVertex);
+		Assert.assertEquals(expected, actual);
+	}
+	
 	/**
 	 * Não é possível gerar a MST de um grafo desconectado.
 	 */
@@ -359,7 +394,6 @@ public class GraphManagerTest {
 	
 	@Test
 	public void testMSTOfCiclicGraph() {
-		Graph ciclicGraph = graphManager.readGraph("resources/ciclicGraph.txt");
 		String mst = graphManager.mst(ciclicGraph);
 		
 		String expectedMST = new StringBuilder()
