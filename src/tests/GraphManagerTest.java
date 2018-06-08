@@ -14,7 +14,8 @@ public class GraphManagerTest {
 	Graph simpleGraph;
 	Graph weightedGraph;
 	Graph disconnectedGraph;
-
+	Graph cycleGraph;
+	Graph cycleWeightGraph;
 	
 	@Before
 	public void setUp() {
@@ -22,7 +23,8 @@ public class GraphManagerTest {
 		simpleGraph = graphManager.readGraph("resources/simpleGraph.txt");
 		weightedGraph = graphManager.readWeightedGraph("resources/weightedGraph.txt");
 		disconnectedGraph = graphManager.readGraph("resources/disconnectedGraph.txt");
-		
+		cycleGraph = graphManager.readGraph("resources/cycleGraph.txt");
+		cycleWeightGraph = graphManager.readWeightedGraph("resources/cycleWeightGraph.txt");
 	}
 	
 	@Test
@@ -119,4 +121,49 @@ public class GraphManagerTest {
 		Assert.assertEquals(weightList, graphManager.graphRepresentation(weightedGraph, "AL"));
 	}
 
+	@Test
+	public void testSimpleMatrixCycle() {
+		String cycleMatrix = 
+				"  1 2 3 4 " + "\n" +
+				"1 0 1 0 1 " + "\n" +
+				"2 1 0 1 0 " + "\n" +
+				"3 0 1 0 1 " + "\n" +
+				"4 1 0 1 0 " + "\n";
+		
+		Assert.assertEquals(cycleMatrix, graphManager.graphRepresentation(cycleGraph, "AM"));
+	}
+	
+	@Test
+	public void testSimpleListCycle() {
+		String cycleList =
+				"1 - 2 4 " + "\n" +
+				"2 - 1 3 " + "\n" +
+				"3 - 2 4 " + "\n" +
+				"4 - 1 3 " + "\n";
+		
+		Assert.assertEquals(cycleList, graphManager.graphRepresentation(cycleGraph, "AL"));
+	}
+	
+	@Test
+	public void testWeightMatrixCycle() {
+		String cycleMatrix =
+				"  1 2 3 4 " + "\n" +
+				"1 0 0.6 0 5 " + "\n" +
+				"2 0.6 0 8 0 " + "\n" +
+				"3 0 8 0 5 " + "\n" +
+				"4 5 0 5 0 " + "\n";
+		
+		Assert.assertEquals(cycleMatrix, graphManager.graphRepresentation(cycleWeightGraph, "AM"));
+	}
+	
+	@Test
+	public void testWeightListCycle() {
+		String cycleList = 
+				"1 - 2(0.6) 4(5) " + "\n" +
+				"2 - 1(0.6) 3(8) " + "\n" +
+				"3 - 2(8) 4(5) " + "\n" +
+				"4 - 1(5) 3(5) " + "\n";
+		Assert.assertEquals(cycleList, graphManager.graphRepresentation(cycleWeightGraph, "AL"));
+	}
+	
 }
